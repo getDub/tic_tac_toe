@@ -18,10 +18,27 @@ else
     player1 = naughts
     player2 = crosses
 end
-puts "Player 1 chose #{player1}'s"
+# puts "Player 1 chose #{player1}'s"
+puts "Player 1 chose crosses"
 puts "Player 2, you will be #{player2}'s.\n LETS GO!"
 end
 players
+
+puts "Player 1, your move."
+
+player1_move = Kernel.gets.chomp
+
+LINE.each_with_index do |array_value, array_index|
+    array_value.each_with_index do |sub_array_value, sub_array_index|
+        if sub_array_value == 5
+            LINE[array_index][sub_array_index] = "X"
+
+        end
+end
+end
+
+
+
 
 # LINE[0][0] = crosses
 # LINE[1][1] = naughts
@@ -31,7 +48,10 @@ players
 def board
 LINE.each do |line|
   puts line.join(' | ')
-  puts $row 
+  puts $row
+    
+  end
+  
 end
 end
 
