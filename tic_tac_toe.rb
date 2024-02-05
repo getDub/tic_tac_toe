@@ -42,7 +42,7 @@ def board
     row = "--+---+--"
     LINE.each do |line|
     puts line.join(' | ')
-    if line[2] == 3 || line[2] == 6
+    if line[2] != 9 
     puts row
 end
 end
