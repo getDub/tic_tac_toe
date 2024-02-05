@@ -1,3 +1,4 @@
+
 #Project: tic tac toe
 
 LINE = [[1,2,3],[4,5,6],[7,8,9]]
@@ -47,11 +48,10 @@ end
 
 def board
 LINE.each do |line|
-  puts line.join(' | ')
-  puts $row
-    
-  end
-  
+    puts line.join(' | ')
+    if line[2] == 3 || line[2] == 6
+    puts $row
+end
 end
 end
 
