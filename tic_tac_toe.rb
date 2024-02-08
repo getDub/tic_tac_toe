@@ -4,43 +4,98 @@
 LINE = [[1,2,3],[4,5,6],[7,8,9]]
 
 
+$player2 = ""
+$player1 = ""
 
-def players
-    player1 = ""
-    player2 = ""
-    puts "Player1, would you like to be Naughts (press O) or Crosses (press X)"
-    player1_choice = Kernel.gets.match(/x|X|o|O|0/)
-    player1 = player1_choice.string.upcase.chomp
-    if player1 == "X"? player2 = "O" : player2 = "X"
+
+class Player
+#   attr_accessor :name
+  puts "Player what is your name?"
+  def initialize(name = gets.chomp)
+    @name = name
+    @player_marker = ""
+    @marker_name = ""
+    @player_indice = ""
+  end
+
+  def name
+    @name
+  end
+
+  def player_marker
+    puts "#{@name}, would you like to be Naughts (press O) or Crosses (press X)"
+    players_choice = Kernel.gets.match(/x|X|o|O|0/)
+    return @marker = players_choice.string.upcase.chomp
+  end
+
+  def marker_name
+    if @marker == "X" ? @marker_name = "crosses" : @marker_name = "naughts"
     end
-    puts "Player 1 chose #{player1}'s"
-    puts "Player 2, you will be #{player2}'s.\n LETS GO!"
-end
-players
+    puts "Thanks #{@name}, you're #{@marker_name}(#{@marker})'s for this game."
+    return @marker_name
+  end
 
-puts "Player 1, your move."
+  def player_indice
+    if @marker_name == "crosses" ? @player_indice = 1 : @player_indice = 0
+    end    
+    return @player_indice
+  end
 
-player1_move = Kernel.gets.chomp
-
-LINE.each_with_index do |array_value, array_index|
-    array_value.each_with_index do |sub_array_value, sub_array_index|
-        if sub_array_value == 5
-            LINE[array_index][sub_array_index] = "X"
-
-        end
-    end
 end
 
+p1 = Player.new
+p1.player_marker
+p1.marker_name
+p p1.player_indice
 
-def board
-    column = " | "
-    row = "--+---+--"
-    LINE.each do |line|
-    puts line.join(' | ')
-    if line[2] != 9 
-    puts row
-end
-end
-end
+    
+# class Game_Engine
+#     attr_accessor :players
+#   def initialize
+#     @players = [Player.new, Player.new]
+#     @current_name_indice = 1
+#   end
 
-board
+
+#   def current_player
+#     return @players[@current_name_indice]
+#   end
+
+#   def next_player
+#     return @current_name_indice = (@current_name_indice + 1)% @players.size
+#   end
+
+# def select_position
+#     puts "Player 2, select a number on the grid to place your #{$player2}."
+    
+#     player_grid_selection = Kernel.gets.match(/[1-9]/)
+#     selection = player_grid_selection.to_s
+#     grid_integer = selection.to_i
+# end
+# end
+
+# puts new_game = Game_Engine.new
+# puts new_game.player_choice
+
+# class Board
+
+#   LINE.each_with_index do |array_value, array_index|
+#     array_value.each_with_index do |sub_array_value, sub_array_index|
+#       if sub_array_value == grid_integer
+#         LINE[array_index][sub_array_index] = "X"
+#       end
+#     end
+#   end
+
+
+#   def board
+#     column = " | "
+#     row = "--+---+--"
+#     LINE.each do |line|
+#     puts line.join(' | ')
+#     if line[2] != 9 
+#     puts row
+#   end
+#   end
+#   end
+# end
