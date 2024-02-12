@@ -9,45 +9,56 @@ $player1 = ""
 
 
 class Player
-#   attr_accessor :name
-  puts "Player what is your name?"
-  def initialize(name = gets.chomp)
-    @name = name
-    @player_marker = ""
-    @marker_name = ""
-    @player_indice = ""
+  attr_accessor :player, :marker, :marker_name, :player_indice
+
+  def initialize(plyr, m, m_name)
+    @player = plyr
+    @marker = m
+    @marker_name = m_name
+    @player_indice = player_indice
+end
+
+def player
+    @player
   end
 
-  def name
-    @name
+  def player_info=(plyr, m, m_name)
+    @player = plyr
+    @marker = m
+    @marker_name = m_name
   end
-
-  def player_marker
-    puts "#{@name}, would you like to be Naughts (press O) or Crosses (press X)"
-    players_choice = Kernel.gets.match(/x|X|o|O|0/)
-    return @marker = players_choice.string.upcase.chomp
-  end
-
-  def marker_name
-    if @marker == "X" ? @marker_name = "crosses" : @marker_name = "naughts"
-    end
-    puts "Thanks #{@name}, you're #{@marker_name}(#{@marker})'s for this game."
-    return @marker_name
-  end
-
-  def player_indice
-    if @marker_name == "crosses" ? @player_indice = 1 : @player_indice = 0
-    end    
-    return @player_indice
-  end
-
+  
+  #   def marker(x_or_o)
+  #     @marker = x_or_o
+  #   end
+  
+  #   def marker_name(x_or_o_written)
+  #     @marker_name = x_or_o_written
+  #   end
 end
 
 p1 = Player.new
-p1.player_marker
-p1.marker_name
-p p1.player_indice
+p p1.player = 'Jerry'
+p p1.player
 
+
+
+# Get playerChoice
+# puts "#{name}, would you like to be Naughts (press O) or Crosses (press X)"
+# players_choice = Kernel.gets.match(/x|X|o|O|0/)
+#     return @marker = players_choice.string.upcase.chomp
+
+#MArker Name
+# if @player_marker == "X" ? @marker_name = "crosses" : @marker_name = "naughts"
+# end
+# puts "Thanks #{name}, you're #{@marker_name}(#{@player_marker})'s for this game."
+# return @marker_name
+
+#Marker Name
+# if @player_marker == "X" ? @marker_name = "crosses" : @marker_name = "naughts"
+# end
+# puts "Thanks #{name}, you're #{@marker_name}(#{@player_marker})'s for this game."
+# return @marker_name
     
 # class Game_Engine
 #     attr_accessor :players
@@ -67,7 +78,7 @@ p p1.player_indice
 
 # def select_position
 #     puts "Player 2, select a number on the grid to place your #{$player2}."
-    
+
 #     player_grid_selection = Kernel.gets.match(/[1-9]/)
 #     selection = player_grid_selection.to_s
 #     grid_integer = selection.to_i
