@@ -16,18 +16,18 @@ class Player
     @marker = m
     @marker_name = m_name
     @player_indice = player_indice
-end
-
-def player
-    @player
   end
 
-  def player_info=(plyr, m, m_name)
-    @player = plyr
-    @marker = m
-    @marker_name = m_name
+  def player_info(plyr, m, m_name)
+    self.player = plyr
+    self.marker = m
+    self.marker_name = m_name
   end
   
+
+  def info 
+    puts "Player name = #{self.player}, and they chose #{self.marker_name}(#{self.marker})"
+  end
   #   def marker(x_or_o)
   #     @marker = x_or_o
   #   end
@@ -37,12 +37,17 @@ def player
   #   end
 end
 
-p1 = Player.new
-p p1.player = 'Jerry'
+p1 = Player.new("Adam", "x", "crosses")
 p p1.player
+p p1.marker
+p p1.marker_name
+p p1.info
 
 
 
+def player_name
+  puts "Hi player! What is your name?"
+end
 # Get playerChoice
 # puts "#{name}, would you like to be Naughts (press O) or Crosses (press X)"
 # players_choice = Kernel.gets.match(/x|X|o|O|0/)
