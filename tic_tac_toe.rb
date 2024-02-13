@@ -11,59 +11,48 @@ $player1 = ""
 class Player
   attr_accessor :player, :marker, :marker_name, :player_indice
 
-  def initialize(plyr, m, m_name)
-    @player = plyr
-    @marker = m
-    @marker_name = m_name
-    @player_indice = player_indice
+  @@number_of_players = 0
+
+  def initialize
+    @player = player_name
+    @marker = marker
+    @marker_name = marker_name
+    @player_indice = player_indice #should this be in the game engine
+    @@number_of_players += 1
   end
 
-  def player_info(plyr, m, m_name)
-    self.player = plyr
-    self.marker = m
-    self.marker_name = m_name
+  def self.total_no_of_players
+    @@number_of_players
+  end
+    
+  def player_name
+    puts "Hi player! What is your name?"
+    @player = gets.chomp
+  end
+
+  def marker
+    puts "#{player}, would you like to be Naughts (press O) or Crosses (press X)"
+    players_choice = Kernel.gets.match(/x|X|o|O|0/)
+    return @marker = players_choice.string.upcase.chomp
   end
   
-
   def info 
     puts "Player name = #{self.player}, and they chose #{self.marker_name}(#{self.marker})"
   end
-  #   def marker(x_or_o)
-  #     @marker = x_or_o
-  #   end
-  
-  #   def marker_name(x_or_o_written)
-  #     @marker_name = x_or_o_written
-  #   end
+
+  private
+
+  def marker_name
+    if @marker == "X" ? @marker_name = "crosses" : @marker_name = "naughts"
+    end
+    puts "Thanks #{@player}, you're #{@marker_name}(#{@marker})'s for this game."
+  end
 end
 
-p1 = Player.new("Adam", "x", "crosses")
-p p1.player
-p p1.marker
-p p1.marker_name
-p p1.info
+p1 = Player.new
 
 
 
-def player_name
-  puts "Hi player! What is your name?"
-end
-# Get playerChoice
-# puts "#{name}, would you like to be Naughts (press O) or Crosses (press X)"
-# players_choice = Kernel.gets.match(/x|X|o|O|0/)
-#     return @marker = players_choice.string.upcase.chomp
-
-#MArker Name
-# if @player_marker == "X" ? @marker_name = "crosses" : @marker_name = "naughts"
-# end
-# puts "Thanks #{name}, you're #{@marker_name}(#{@player_marker})'s for this game."
-# return @marker_name
-
-#Marker Name
-# if @player_marker == "X" ? @marker_name = "crosses" : @marker_name = "naughts"
-# end
-# puts "Thanks #{name}, you're #{@marker_name}(#{@player_marker})'s for this game."
-# return @marker_name
     
 # class Game_Engine
 #     attr_accessor :players
