@@ -1,11 +1,6 @@
 
 #Project: tic tac toe
 
-LINE = [[1,2,3],[4,5,6],[7,8,9]]
-
-
-$player2 = ""
-$player1 = ""
 
 
 class Player
@@ -49,38 +44,50 @@ class Player
   end
 end
 
-p1 = Player.new
+# p1 = Player.new
 
 
 
     
-# class Game_Engine
-#     attr_accessor :players
-#   def initialize
-#     @players = [Player.new, Player.new]
-#     @current_name_indice = 1
-#   end
+class Game_Engine
 
+  LINE = [[1,2,3],[4,5,6],[7,8,9]]
 
-#   def current_player
-#     return @players[@current_name_indice]
-#   end
+  @current_name_indice = 1
+  # @player = current_player
+  
+  attr_accessor :players, :board
 
-#   def next_player
-#     return @current_name_indice = (@current_name_indice + 1)% @players.size
-#   end
+  def initialize
+    @players = [Player.new, Player.new]
+    @board = board
+  end
 
-# def select_position
-#     puts "Player 2, select a number on the grid to place your #{$player2}."
+  def board
+    column = " | "
+    row = "--+---+--"
+    LINE.each do |line|
+    puts line.join(' | ')
+    if line[2] != 9 
+    puts row
+  end
+  end
 
-#     player_grid_selection = Kernel.gets.match(/[1-9]/)
-#     selection = player_grid_selection.to_s
-#     grid_integer = selection.to_i
-# end
-# end
+  def current_player
+    return @players[@current_name_indice]
+  end
 
-# puts new_game = Game_Engine.new
-# puts new_game.player_choice
+  def next_player
+    return @current_name_indice = (@current_name_indice + 1)% @players.size
+  end
+
+  def player_move
+    puts "#{current_player}, select a number on the grid to place your #{@current_player}."
+    player_grid_selection = Kernel.gets.match(/[1-9]/)
+    selection = player_grid_selection.to_s
+    grid_integer = selection.to_i
+  end
+  end
 
 # class Board
 
@@ -91,16 +98,6 @@ p1 = Player.new
 #       end
 #     end
 #   end
+end
 
-
-#   def board
-#     column = " | "
-#     row = "--+---+--"
-#     LINE.each do |line|
-#     puts line.join(' | ')
-#     if line[2] != 9 
-#     puts row
-#   end
-#   end
-#   end
-# end
+new_game = Game_Engine.new
