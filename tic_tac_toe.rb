@@ -23,7 +23,7 @@ class Player
   end
 
   def self.marker_selections
-    @@marker_selctions
+    @@marker_selections
   end
 
   def ask_for_name
@@ -106,13 +106,16 @@ class Game_Engine
   end
 
   def play_game
-    2.times do
+    5.times do
     puts "#{current_player} it's your move."
-    grid_number = gets.match(/[1-9]/).to_s.to_i
-    put_marker_on_board(grid_number)
+    record_moves(LINE, grid_number_selection = gets.match(/[1-9]/).to_s.to_i)
+    record_moves(WIN_COMBOS, grid_number_selection)
+    # put_marker_on_board(grid_number_selection = gets.match(/[1-9]/).to_s.to_i)
+    # match_combo(grid_number_selection)
+    puts "#{current_player} chose #{grid_number_selection}"
     board
-    puts "#{current_player} chose #{grid_number}"
-    p current_marker
+    has_won?
+    # p current_marker
     next_player
     end
   end
@@ -128,25 +131,51 @@ class Game_Engine
   def current_marker 
     Player.marker_selections[@current_name_indice.to_i]
   end
-  
-  def player_grid_selection
-    num = Kernel.gets.match(/[1-9]/)
-    return grid_selection = num.to_s.to_i
-  end
-  
-  def put_marker_on_board(grid_num)
-    LINE.each_with_index do |array_value, array_index|
+
+  def record_moves(const_array, grid_num)
+    const_array.each_with_index do |array_value, array_index|
       array_value.each_with_index do |sub_array_value, sub_array_index|
         if sub_array_value == grid_num
-          LINE[array_index][sub_array_index] = current_marker
+          const_array[array_index][sub_array_index] = current_marker
         end
       end
     end
   end
+  
+  # def put_marker_on_board(grid_num)
+  #   LINE.each_with_index do |array_value, array_index|
+  #     array_value.each_with_index do |sub_array_value, sub_array_index|
+  #       if sub_array_value == grid_num
+  #         LINE[array_index][sub_array_index] = current_marker
+  #       end
+  #     end
+  #   end
+  # end
+
+  # def match_combo(grid_num)
+  #   WIN_COMBOS.each_with_index do |array_value, array_index|
+  #     array_value.each_with_index do |sub_array_value, sub_array_index|
+  #       if sub_array_value == grid_num
+  #         WIN_COMBOS[array_index][sub_array_index] = current_marker
+  #         p WIN_COMBOS
+  #       end
+  #     end
+  #   end
+  # end
+
+  def has_won?
+    WIN_COMBOS.each do |combination|
+      if combination == CROSS || combination == NAUGHTS
+        puts "#{current_player} YOU WIN!"
+      end
+    end
+  end
+
+
 end
 
 new_game = Game_Engine.new.play_game
-p Player.all_players
+# p Player.all_players
 # p new_game.current_player
 # new_game.next_player
 # p new_game.current_player
