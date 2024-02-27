@@ -4,7 +4,7 @@
 class Player
   attr_accessor :ask_for_name, :player_name, :marker_symbol, :marker_name, :player_indice
 
-  @@all_players = []
+  # @@all_players = []
   @@marker_selections = []
 
   def initialize
@@ -14,7 +14,7 @@ class Player
     @marker_symbol = marker_symbol
     @marker_name = marker_name
     @player_indice = player_indice
-    @@all_players << self
+    # @@all_players << self
     @@marker_selections << @marker_symbol
   end
   
@@ -27,7 +27,8 @@ class Player
   end
 
   def ask_for_name
-    if @@all_players == []
+    # if @@all_players == []
+    if @@marker_selections == []
       puts "Hi player. Enter your name." 
       @player_name = gets.chomp
     else
@@ -43,8 +44,16 @@ class Player
       return @marker_symbol = "X"
     else
     puts "#{@player_name}, would you like to be naughts (press o) or crosses (press x)?"
-    players_choice = Kernel.gets.chomp.match(/x|X|o|O|0/)
-    return @marker_symbol = players_choice.string.upcase
+    is_valid_character?(players_choice = gets.chomp.to_s.upcase)
+    end
+  end
+
+  def is_valid_character?(selection)
+    if /[oOxX0]/.match(selection) == nil
+      puts "Not a valid character. Try again."
+      ask_for_marker_choice
+    else 
+      return @marker_symbol = selection
     end
   end
 
@@ -89,7 +98,7 @@ class Game_Engine
   
   def initialize
     @players = [Player.new, Player.new]
-    puts "Choose a number from 1 - 9 to place your marker on the corresponding number on the board below."
+    puts "Choose a number from 1 - 9 to place your marker on the corresponding number in the board below."
     @board = board
     @current_player = current_player
   end
