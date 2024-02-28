@@ -4,7 +4,6 @@
 class Player
   attr_accessor :ask_for_name, :player_name, :marker_symbol, :marker_name, :player_indice
 
-  # @@all_players = []
   @@marker_selections = []
 
   def initialize
@@ -14,12 +13,7 @@ class Player
     @marker_symbol = marker_symbol
     @marker_name = marker_name
     @player_indice = player_indice
-    # @@all_players << self
     @@marker_selections << @marker_symbol
-  end
-  
-  def self.all_players
-    @@all_players
   end
 
   def self.marker_selections
@@ -27,7 +21,6 @@ class Player
   end
 
   def ask_for_name
-    # if @@all_players == []
     if @@marker_selections == []
       puts "Hi player. Enter your name." 
       @player_name = gets.chomp
@@ -104,28 +97,25 @@ class Game_Engine
   end
 
   def board
-    column = " | "
-    row = "--+---+--"
+  column = " | "
+  row = "--+---+--"
     LINE.each do |line|
     puts line.join(' | ')
-    if line[2] != 9 
-    puts row
-  end
-  end
+      if line[2] != 9 
+      puts row
+      end
+    end
   end
 
   def play_game
-    5.times do
-    puts "#{current_player} it's your move."
-    record_moves(LINE, grid_number_selection = gets.match(/[1-9]/).to_s.to_i)
-    record_moves(WIN_COMBOS, grid_number_selection)
-    # put_marker_on_board(grid_number_selection = gets.match(/[1-9]/).to_s.to_i)
-    # match_combo(grid_number_selection)
-    puts "#{current_player} chose #{grid_number_selection}"
-    board
-    has_won?
-    # p current_marker
+    while has_won? do
     next_player
+    puts "#{current_player} it's your move."
+    position_already_taken?(grid_number_selection = gets.match(/[1-9]/).to_s.to_i)
+    replace_grid_num_with_marker(LINE, grid_number_selection)
+    replace_grid_num_with_marker(WIN_COMBOS, grid_number_selection)
+    # is_draw?
+    board
     end
   end
 
@@ -141,7 +131,7 @@ class Game_Engine
     Player.marker_selections[@current_name_indice.to_i]
   end
 
-  def record_moves(const_array, grid_num)
+  def replace_grid_num_with_marker(const_array, grid_num)
     const_array.each_with_index do |array_value, array_index|
       array_value.each_with_index do |sub_array_value, sub_array_index|
         if sub_array_value == grid_num
@@ -151,31 +141,27 @@ class Game_Engine
     end
   end
   
-  # def put_marker_on_board(grid_num)
-  #   LINE.each_with_index do |array_value, array_index|
-  #     array_value.each_with_index do |sub_array_value, sub_array_index|
-  #       if sub_array_value == grid_num
-  #         LINE[array_index][sub_array_index] = current_marker
-  #       end
-  #     end
-  #   end
-  # end
-
-  # def match_combo(grid_num)
-  #   WIN_COMBOS.each_with_index do |array_value, array_index|
-  #     array_value.each_with_index do |sub_array_value, sub_array_index|
-  #       if sub_array_value == grid_num
-  #         WIN_COMBOS[array_index][sub_array_index] = current_marker
-  #         p WIN_COMBOS
-  #       end
-  #     end
-  #   end
-  # end
-
   def has_won?
     WIN_COMBOS.each do |combination|
       if combination == CROSS || combination == NAUGHTS
         puts "#{current_player} YOU WIN!"
+        return
+      end
+    end
+  end
+  
+  def position_already_taken?(grid_num)
+    if LINE.flatten.none?(grid_num)
+    puts "Sorry #{current_player} this place is already taken. Select another position"
+    next_player
+    end
+  end
+
+  def is_draw?
+    LINE.flatten.each do |item|
+      if item != "X" || item != "O"
+        puts "its a draw"
+        return
       end
     end
   end
