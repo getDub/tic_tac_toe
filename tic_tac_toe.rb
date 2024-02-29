@@ -43,7 +43,7 @@ class Player
   end
 
   def is_valid_character?(selection)
-    if /[oOxX0]/.match(selection) == nil
+    if /\b[oOxX]\b/.match(selection) == nil
       puts "Not a valid character. Try again."
       ask_for_marker_choice
     else 
