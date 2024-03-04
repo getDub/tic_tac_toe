@@ -81,8 +81,6 @@ class Game_Engine
 
   LINE = [[1,2,3],[4,5,6],[7,8,9]]
   WIN_COMBOS = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
-#   CROSS = ["X","X","X"]
-#   NAUGHTS = ["O","O","O"]
   
   attr_accessor :players, :board, :current_player
   
@@ -107,15 +105,28 @@ class Game_Engine
   end
 
   def play_game
-    while has_won? do
-    next_player
-    puts "#{current_player} it's your move."
-    position_already_taken?(grid_number_selection = gets.match(/[1-9]/).to_s.to_i)
-    replace_grid_num_with_marker(LINE, grid_number_selection)
-    replace_grid_num_with_marker(WIN_COMBOS, grid_number_selection)
-    is_draw?
-    board
+    15.times do
+
+      next_player
+      puts "#{current_player} it's your move."
+      grid_number_selection = gets.match(/[1-9]/).to_s.to_i
+      player_move(grid_number_selection)
+      # position_already_taken?()
+      # replace_grid_num_with_marker(LINE, grid_number_selection)
+      # replace_grid_num_with_marker(WIN_COMBOS, grid_number_selection)
+      if has_won?
+      elsif is_draw?
+        puts "draw"
+        
+      end
+      board   
     end
+  end
+  
+  def player_move(player_input) 
+    position_already_taken?(player_input)
+    replace_grid_num_with_marker(LINE, player_input)
+    replace_grid_num_with_marker(WIN_COMBOS, player_input)
   end
 
   def current_player
@@ -140,15 +151,6 @@ class Game_Engine
     end
   end
   
-#   def has_won?
-#     WIN_COMBOS.each do |combination|
-#       if combination == CROSS || combination == NAUGHTS
-#         puts "#{current_player} YOU WIN!"
-#         return
-#     end
-# end
-#   end
-  
   def has_won?
     WIN_COMBOS.each do |combinations|
       if combinations.all?('X') || combinations.all?('O')
@@ -157,7 +159,6 @@ class Game_Engine
     end
   end  
 
-  
   def position_already_taken?(grid_num)
     if LINE.flatten.none?(grid_num)
     puts "Sorry #{current_player} this place is already taken. Select another position"
@@ -166,9 +167,9 @@ class Game_Engine
   end
 
   def is_draw?
-    if LINE.flatten.none?(1..9)
-        puts "its a draw"
-    end
+     LINE.flatten.none?(1..9)
+  #       puts "its a draw"
+  #   end
   end
 
 
