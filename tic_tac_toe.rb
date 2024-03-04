@@ -81,8 +81,8 @@ class Game_Engine
 
   LINE = [[1,2,3],[4,5,6],[7,8,9]]
   WIN_COMBOS = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
-  CROSS = ["X","X","X"]
-  NAUGHTS = ["O","O","O"]
+#   CROSS = ["X","X","X"]
+#   NAUGHTS = ["O","O","O"]
   
   attr_accessor :players, :board, :current_player
   
@@ -140,14 +140,23 @@ class Game_Engine
     end
   end
   
+#   def has_won?
+#     WIN_COMBOS.each do |combination|
+#       if combination == CROSS || combination == NAUGHTS
+#         puts "#{current_player} YOU WIN!"
+#         return
+#     end
+# end
+#   end
+  
   def has_won?
-    WIN_COMBOS.each do |combination|
-      if combination == CROSS || combination == NAUGHTS
+    WIN_COMBOS.each do |combinations|
+      if combinations.all?('X') || combinations.all?('O')
         puts "#{current_player} YOU WIN!"
-        return
       end
     end
-  end
+  end  
+
   
   def position_already_taken?(grid_num)
     if LINE.flatten.none?(grid_num)
