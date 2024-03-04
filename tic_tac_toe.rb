@@ -1,4 +1,5 @@
 
+
 #Project: tic tac toe
 
 class Player
@@ -42,7 +43,7 @@ class Player
   end
 
   def is_valid_character?(selection)
-    if /[oOxX0]/.match(selection) == nil
+    if /\b[oOxX]\b/.match(selection) == nil
       puts "Not a valid character. Try again."
       ask_for_marker_choice
     else 
@@ -114,7 +115,7 @@ class Game_Engine
     position_already_taken?(grid_number_selection = gets.match(/[1-9]/).to_s.to_i)
     replace_grid_num_with_marker(LINE, grid_number_selection)
     replace_grid_num_with_marker(WIN_COMBOS, grid_number_selection)
-    # is_draw?
+    is_draw?
     board
     end
   end
@@ -158,11 +159,8 @@ class Game_Engine
   end
 
   def is_draw?
-    LINE.flatten.each do |item|
-      if item != "X" || item != "O"
+    if LINE.flatten.none?(1..9)
         puts "its a draw"
-        return
-      end
     end
   end
 
