@@ -92,33 +92,31 @@ class Game_Engine
     @board = board
     @current_player = current_player
   end
-
+  
   def board
-  column = " | "
-  row = "--+---+--"
+    column = " | "
+    row = "--+---+--"
     LINE.each do |line|
-    puts line.join(' | ')
+      puts line.join(' | ')
       if line[2] != 9 
-      puts row
+        puts row
       end
     end
   end
-
+  
   def play_game
-    15.times do
+    @start = true
 
+    while @start == true do
+      
       next_player
       puts "#{current_player} it's your move."
       grid_number_selection = gets.match(/[1-9]/).to_s.to_i
       player_move(grid_number_selection)
-      # position_already_taken?()
-      # replace_grid_num_with_marker(LINE, grid_number_selection)
-      # replace_grid_num_with_marker(WIN_COMBOS, grid_number_selection)
-      if has_won?
-      elsif is_draw?
-        puts "draw"
+
+      is_draw?
+      has_won?
         
-      end
       board   
     end
   end
@@ -155,6 +153,7 @@ class Game_Engine
     WIN_COMBOS.each do |combinations|
       if combinations.all?('X') || combinations.all?('O')
         puts "#{current_player} YOU WIN!"
+        @start = false
       end
     end
   end  
@@ -167,40 +166,13 @@ class Game_Engine
   end
 
   def is_draw?
-     LINE.flatten.none?(1..9)
-  #       puts "its a draw"
-  #   end
+    if LINE.flatten.none?(1..9)
+        puts "its a draw"
+        @start = false
+      end
   end
 
 
 end
 
 new_game = Game_Engine.new.play_game
-# p Player.all_players
-# p new_game.current_player
-# new_game.next_player
-# p new_game.current_player
-# p new_game.marker_name
-# p new_game.player_move
-# p new_game.player_name
-
-
-
-
-
-# def player_move
-# puts "#{@current_player}, select a number on the grid to place your #{@marker_symbol}."
-# player_grid_selection = Kernel.gets.match(/[1-9]/)
-# selection = player_grid_selection.to_s
-# grid_integer = selection.to_i
-# end
-
-
-# class Board
-#   LINE.each_with_index do |array_value, array_index|
-#     array_value.each_with_index do |sub_array_value, sub_array_index|
-#       if sub_array_value == grid_integer
-#         LINE[array_index][sub_array_index] = "X"
-#       end
-#     end
-#   end
