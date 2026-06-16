@@ -96,12 +96,12 @@ class Game_Engine
   end
 
   def board
-  column = " | "
-  row = "--+---+--"
+    column = " | "
+    row = "--+---+--"
     LINE.each do |line|
-    puts line.join(' | ')
+      puts line.join(' | ')
       if line[2] != 9 
-      puts row
+        puts row
       end
     end
   end
@@ -165,7 +165,7 @@ class Game_Engine
 
 end
 
-new_game = Game_Engine.new.play_game
+# new_game = Game_Engine.new.play_game
 # p Player.all_players
 # p new_game.current_player
 # new_game.next_player
@@ -173,6 +173,7 @@ new_game = Game_Engine.new.play_game
 # p new_game.marker_name
 # p new_game.player_move
 # p new_game.player_name
+
 
 
 
